@@ -1,0 +1,92 @@
+class UserAccount {
+    private String username;
+    private String password;
+
+    public UserAccount(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+}
+
+class SecurityValidator {
+
+    public boolean isValid(UserAccount user) {
+        String password = user.getPassword();
+
+        if (password.length() < 8) {
+            return false;
+        }
+
+        boolean hasDigit = false;
+        boolean hasUpper = false;
+
+        for (int i = 0; i < password.length(); i++) {
+            char ch = password.charAt(i);
+
+            if (Character.isDigit(ch)) {
+                hasDigit = true;
+            }
+
+            if (Character.isUpperCase(ch)) {
+                hasUpper = true;
+            }
+        }
+
+        return hasDigit && hasUpper;
+    }
+}
+
+public class project {
+    public static void main(String[] args) {
+
+        UserAccount user1 = new UserAccount("ashish", "Ashish123");
+        SecurityValidator validator = new SecurityValidator();
+
+        if (validator.isValid(user1)) {
+            System.out.println("Username: " + user1.getUsername());
+            System.out.println("Password: " + user1.getPassword());
+            System.out.println("Password is VALID");
+        } else {
+            System.out.println("Username: " + user1.getUsername());
+            System.out.println("Password: " + user1.getPassword());
+            System.out.println("Password is INVALID");
+        }
+
+        System.out.println();
+
+        UserAccount user2 = new UserAccount("ashish", "ash123");
+
+        if (validator.isValid(user2)) {
+            System.out.println("Username: " + user2.getUsername());
+            System.out.println("Password: " + user2.getPassword());
+            System.out.println("Password is VALID");
+        } else {
+            System.out.println("Username: " + user2.getUsername());
+            System.out.println("Password: " + user2.getPassword());
+            System.out.println("Password is INVALID");
+        }
+    }
+}
+
+
+// Sample input 1
+//   Username: ashish
+//   Password: Ashish123
+
+// Sample Output 1
+//   Password is VALID
+
+// Sample Input 2
+//   Username: ashish
+//   Password: ash123
+
+// Sample Output 2
+//   Password is INVALID
